@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #e0f3ff, #ffffff);
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .form-container, .details-container {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .input-container input[type="text"],
+        .input-container select {
+            width: calc(100% - 30px);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+
+        .remove-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Login page styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e0f3ff;
+        }
+
+        .login-form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-form .input-container {
+            margin-bottom: 20px;
+        }
+
+        .login-form .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: calc(100% - 30px);
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .login-form .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #45a049;
+        }
+
+        @media print {
+            .login-container, .login-form, .login-container * {
+                display: none !important;
+            }
+
+            .container {
+                margin: 0 auto !important;
+                width: 100% !important;
+            }
+
+            .details-container table {
+                display: table;
+            }
+
+            .details-container th, .details-container td {
+                display: table-cell;
+                border: 1px solid #ddd;
+            }
+
+            .add-student-form, .button-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-container">
+        <div class="login-form">
+            <h2>Professor Login</h2>
+            <div class="input-container">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="button-container">
+                <button type="button" id="loginBtn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Information System -->
+    <div class="container" style="display: none;">
+        <h1>Student Information System</h1>
+
+        <!-- Student information form -->
+        <div class="form-container add-student-form">
+            <h2>Add Student</h2>
+            <form id="studentForm">
+                <div class="input-container">
+                    <label for="name">Student Name:</label>
+                    <input type="text" id="name" placeholder="Enter student name">
+                </div>
+                <div class="input-container">
+                    <label for="department">Department:</label>
+                    <select id="department">
+                        <option value="" selected disabled>Select Department</option>
+                        <option value="CSE">CSE</option>
+                        <option value="EEE">EEE</option>
+                        <option value="IT">IT</option>
+                        <option value="ECE">ECE</option>
+                        <option value="MECH">MECH</option>
+                        <option value="ICE">ICE</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="text" id="dob" placeholder="YYYY-MM-DD">
+                </div>
+                <div class="input-container">
+                    <label for="batch">Batch No:</label>
+                    <input type="text" id="batch" placeholder="Enter batch number">
+                </div>
+                <div class="input-container">
+                    <label for="year">Year of Study:</label>
+                    <input type="text" id="year" placeholder="Enter year of study">
+                </div>
+                <div class="button-container">
+                    <button type="button" id="addStudentBtn">Add Student</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Student details table -->
+        <div class="details-container">
+            <h2>Student Details</h2>
+            <table id="studentTable">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Department</th>
+                        <th>Date of Birth</th>
+                        <th>Batch No</th>
+                        <th>Year of Study</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Student details will be displayed here -->
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button type="button" id="printBtn">Print</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Event listener for login button
+        document.getElementById("loginBtn").addEventListener("click", function() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Simulate login process
+            if (username === "professor" && password === "welcome") {
+                alert("Login successful! Redirecting to Student Information System...");
+                // Show the student information system
+                document.querySelector(".container").style.display = "block";
+                // Hide the login page
+                document.querySelector(".login-container").style.display = "none";
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        });
+
+        // Function to add a new student to the table
+        function addStudent() {
+            var name = document.getElementById("name").value;
+            var department = document.getElementById("department").value;
+            var dob = document.getElementById("dob").value;
+            var batch = document.getElementById("batch").value;
+            var year = document.getElementById("year").value;
+
+            if (!name || !department || !dob || !batch || !year) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            var table = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+            var row = table.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+
+            cell1.textContent = name;
+            cell2.textContent = department;
+            cell3.textContent = dob;
+            cell4.textContent = batch;
+            cell5.textContent = year;
+            cell6.innerHTML = '<button class="remove-btn" onclick="removeStudent(this)">Remove</button>';
+
+            // Clear input fields
+            document.getElementById("name").value = "";
+            document.getElementById("department").selectedIndex = 0;
+            document.getElementById("dob").value = "";
+            document.getElementById("batch").value = "";
+            document.getElementById("year").value = "";
+        }
+
+        // Function to remove a student from the table
+        function removeStudent(row) {
+            var i = row.parentNode.parentNode.rowIndex;
+            document.getElementById("studentTable").deleteRow(i);
+        }
+
+        // Event listener for add student button
+        document.getElementById("addStudentBtn").addEventListener("click", function() {
+            addStudent();
+        });
+
+        // Event listener for print button
+        document.getElementById("printBtn").addEventListener("click", function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
